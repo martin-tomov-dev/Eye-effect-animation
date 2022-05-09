@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye effect</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        .parallax-wrap {
+            position: relative;
+            width: min-content;
+            /* height: 100vh; */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .parallax-wrap h2 {
+            position: relative;
+            font-size: 100px;
+            color: white;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .parallax-wrap span {
+            position: absolute;
+            height: 3.1%;
+            width: 5%;
+            border-radius: 100%;
+        }
+
+        .parallax-wrap span:nth-child(3) {
+            top: 13%;
+            left: 41%;
+            background: black;
+            z-index: 3;
+        }
+
+        .parallax-wrap span:nth-child(4) {
+            top: 13%;
+            left: 57%;
+            background: black;
+            z-index: 3;
+        }
+        .parallax-wrap span:nth-child(1) {
+            top: 10%;
+            left: 36%;
+            width: 15%;
+            height: 0;
+            background-image: url("speedback.png");
+            z-index: 4;
+        }
+        .parallax-wrap span:nth-child(2) {
+            top: 10%;
+            left: 52.5%;
+            width: 15%;
+            height: 0;
+            background-image: url("speedback.png");
+            z-index: 4;
+        }
+        .cucumber {
+            width: 50vw;
+        }
+        .blink {
+            animation-name: blinks;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+        }
+        @keyframes blinks {
+            0% {height: 0;}
+            95% {height: 0%;}
+            99% {height: 9%;}
+            100% {height: 0;}
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parallax-wrap">
+        <span class="blink"></span>
+        <span class="blink"></span>
+        <span value="0.5"></span>
+        <span value="0.5"></span>
+        <img src="speed.png" class="cucumber" alt="cucumber">
+    </div>
+</body>
+<script>
+    document.addEventListener("mousemove", parallax);
+    function parallax(event) {
+        this.querySelectorAll(".parallax-wrap span").forEach((shift) => {
+            const position = shift.getAttribute("value");
+            if (position) {
+                const x = -(window.innerWidth - event.pageX * position) / 98;
+                const y = -(window.innerHeight - event.pageY * position) / 98;
+                shift.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            }
+        });
+    }
+</script>
+
+</html>
